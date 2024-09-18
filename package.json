@@ -1,0 +1,16 @@
+{
+  "name": "devtinder",
+  "version": "1.0.0",
+  "description": "devtinder is an application where developers can meet and connect on their intrests",
+  "main": "no",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "Poornachander",
+  "license": "ISC"
+}
