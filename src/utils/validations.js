@@ -1,41 +1,36 @@
-const bcrypt = require("bcrypt");
 const validator = require("validator");
 
 const validateSignUpData = (req) => {
   const { firstName, lastName, emailId, password } = req.body;
-  try {
-    if (!firstName || !lastName) {
-      throw new Error("Invalid first name or last name");
-    }
-    if (!validator.isEmail(emailId)) {
-      console.log("Invalid email");
-      throw new Error("Invalid email format");
-    }
-    if (!validator.isStrongPassword(password)) {
-      throw new Error(
-        "Password must be at least 8 characters long, contain a number, a lowercase letter, and an uppercase letter"
-      );
-    }
-  } catch (e) {
-    throw new Error("Error :  " + e.message);
+  if (!firstName || !lastName) {
+    throw new Error("Name is not valid!");
+  } else if (!validator.isEmail(emailId)) {
+    throw new Error("Email is not valid!");
+  } else if (!validator.isStrongPassword(password)) {
+    throw new Error("Please enter a strong Password!");
   }
 };
 
 const validateEditProfileData = (req) => {
-  const ALLOWED_UPDATES = [
+  const allowedEditFields = [
     "firstName",
     "lastName",
     "emailId",
-    "age",
-    "gender",
     "photoUrl",
+    "gender",
+    "age",
+    "about",
     "skills",
   ];
-  const updates = Object.keys(req.body);
-  const isValidUpdate = updates.every((update) =>
-    ALLOWED_UPDATES.includes(update)
+
+  const isEditAllowed = Object.keys(req.body).every((field) =>
+    allowedEditFields.includes(field)
   );
-  return isValidUpdate;
+
+  return isEditAllowed;
 };
 
-module.exports = { validateSignUpData, validateEditProfileData };
+module.exports = {
+  validateSignUpData,
+  validateEditProfileData,
+};
